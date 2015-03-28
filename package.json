@@ -1,0 +1,30 @@
+{
+  "name": "mock-data",
+  "version": "1.0.0",
+  "description": "generate mock data(number, date, etc.) in json/csv",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xinghul/mock-data.git"
+  },
+  "keywords": [
+    "mock",
+    "data"
+  ],
+  "author": "Levi Lu <xinghu1989@gmail.com> (http://xinghu-lu.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xinghul/mock-data/issues"
+  },
+  "homepage": "https://github.com/xinghul/mock-data",
+  "devDependencies": {
+    "mocha": "^2.2.1"
+  },
+  "dependencies": {
+    "moment": "^2.9.0",
+    "should": "^5.2.0"
+  }
+}

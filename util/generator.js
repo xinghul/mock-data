@@ -12,29 +12,32 @@
         if (options.objectMode === undefined) {
             options.objectMode = true;
         }
-        
-        this.source = null;
-        this.count = options.count || 10;
+
+        this._source = null;
+        this._count = options.count || 10;
 
         switch (options.type) {
             case "date":
-                this.source = require("../lib/date")();
+                this._source = require("../lib/date")();
                 break;
             default: 
-                this.source = require("../lib/date")();
+                this._source = require("../lib/date")();
                 break;
         }
+        // set params for specific source
+        this._source.params(options.params);
+
         Readable.call(this, options);
     }
 
     Generator.prototype._read = function() {
-        if (this.count <= 0) {
+        if (this._count <= 0) {
             return this.push(null);
         }
 
-        this.push(this.source._generate());
+        this.push(this._source._generate());
 
-        this.count --;
+        this._count --;
     };
 
     module.exports = function() {

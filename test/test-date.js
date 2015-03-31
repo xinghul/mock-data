@@ -10,7 +10,7 @@
     ,   rDate2;
 
     describe("Test date", function() {
-        describe("Test basics", function() {
+        describe("Basic tests", function() {
             before(function() {
                 rDate1 = rDate();
             });
@@ -27,10 +27,10 @@
 
                 done();
             });
-            it("should have default params and be able to get params by getParams()", function (done) {
-                rDate1.getParams.should.exist && rDate1.getParams.should.be.a.Function;
+            it("should have default params and be able to get params by params()", function (done) {
+                rDate1.params.should.exist && rDate1.params.should.be.a.Function;
 
-                var params = rDate1.getParams();
+                var params = rDate1.params();
 
                 params.should.be.an.Object;
                 should(params.start).be.a.Number;
@@ -40,8 +40,8 @@
 
                 done();
             });
-            it("should be able to set parameters by setParams()", function (done) {
-                rDate1.setParams.should.exist && rDate1.setParams.should.be.a.Function;
+            it("should be able to set parameters by params()", function (done) {
+                rDate1.params.should.exist && rDate1.params.should.be.a.Function;
 
                 var newParams = {
                     start  : 1989,
@@ -50,9 +50,7 @@
                     format : "MMMM Do YYYY, h:mm:ss a"
                 };
 
-                rDate1.setParams(newParams);
-
-                var afterSetParams = rDate1.getParams();
+                var afterSetParams = rDate1.params(newParams);
 
                 afterSetParams.should.be.an.Object;
                 should(afterSetParams.start).equal(newParams.start);
@@ -64,7 +62,7 @@
             });
             it("should generate a new object each time calling rDate()", function (done) {
                 rDate1 = rDate();
-                rDate1.setParams({
+                rDate1.params({
                     start  : 1989,
                     end    : 2012,
                     isUTC  : true,
@@ -72,7 +70,7 @@
                 });
 
                 rDate2 = rDate();
-                rDate2.setParams({
+                rDate2.params({
                     start  : 1990,
                     end    : 2002,
                     isUTC  : false,
@@ -88,7 +86,7 @@
             });
         });
 
-        describe("Test correctness", function() {
+        describe("Advance tests", function() {
             before(function() {
                 rDate2 = rDate();
             });
@@ -104,7 +102,7 @@
             it("should generate year in range", function (done) {
                 var start = 1989
                 ,   end   = 1992;
-                rDate2.setParams({
+                rDate2.params({
                     start : start,
                     end   : end,
                     format: "YYYY"

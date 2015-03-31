@@ -4,7 +4,7 @@
     var should = require("should")
     ,   moment = require("moment");
 
-    var rDate  = require("../lib/date");
+    var rDate  = require("../").date;
 
     var rDate1
     ,   rDate2;

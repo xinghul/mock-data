@@ -1,10 +1,10 @@
 {
   "name": "mock-data",
   "version": "1.0.0",
-  "description": "generate mock data(number, date, etc.) in json/csv",
+  "description": "generate mock data(random number, date, etc.)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -12,7 +12,10 @@
   },
   "keywords": [
     "mock",
-    "data"
+    "random",
+    "data",
+    "date",
+    "integer"
   ],
   "author": "Levi Lu <xinghu1989@gmail.com> (http://xinghu-lu.net/)",
   "license": "MIT",

@@ -2,8 +2,11 @@
     "use strict";
 
     module.exports = {
-        date: require("./lib/date"),
-        integer: require("./lib/integer")
+        generic: {
+            date: require("./lib/date"),
+            integer: require("./lib/integer")
+        },
+        generate: require("./util/generator")
     };
     
 }();

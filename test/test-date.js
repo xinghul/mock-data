@@ -4,7 +4,7 @@
     var should = require("should")
     ,   moment = require("moment");
 
-    var rDate  = require("../").date;
+    var rDate  = require("../").generic.date;
 
     var rDate1
     ,   rDate2;
@@ -93,10 +93,10 @@
                 rDate2 = rDate();
             });
             it("should be able to generate valid date using generate()", function (done) {
-                rDate2.generate.should.exist && rDate2.generate.should.be.a.Function;
+                rDate2._generate.should.exist && rDate2._generate.should.be.a.Function;
 
                 for (var i = 0; i < 100; i ++) {
-                    should(moment(rDate2.generate()).isValid()).be.true;
+                    should(moment(rDate2._generate()).isValid()).be.true;
                 }
                 
                 done();
@@ -111,7 +111,7 @@
                 });
 
                 for (var i = 0, y = 0; i < 100; i ++) {
-                    y = parseInt(rDate1.generate());
+                    y = parseInt(rDate1._generate());
                     should(y).not.greaterThan(end).and.not.lessThan(start);
                 }
 

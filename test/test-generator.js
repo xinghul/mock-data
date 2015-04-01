@@ -14,9 +14,6 @@
             });
             it("should be able to take callback", function (done) {
                 mock.generate({type: "date", count: 10}, function (err, data) {
-                    data.should.exist && data.should.be.an.Array;
-                    (data.length).should.equal(10);
-
                     done();
                 });
             });

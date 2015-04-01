@@ -6,8 +6,7 @@
 
     var rDate  = require("../").generic.date;
 
-    var rDate1
-    ,   rDate2;
+    var rDate1, rDate2;
 
     describe("Test date", function() {
         describe("Basic tests", function() {
@@ -40,7 +39,7 @@
 
                 done();
             });
-            it("should be able to set parameters by params()", function (done) {
+            it("should be able to set params by params()", function (done) {
                 rDate1.params.should.exist && rDate1.params.should.be.a.Function;
 
                 var newParams = {
@@ -88,13 +87,13 @@
 
         describe("Advance tests", function() {
             before(function() {
-                rDate2 = rDate();
+                rDate1 = rDate();
             });
-            it("should be able to generate valid date using generate()", function (done) {
-                rDate2._generate.should.exist && rDate2._generate.should.be.a.Function;
+            it("should be able to generate valid date using _generate()", function (done) {
+                rDate1._generate.should.exist && rDate1._generate.should.be.a.Function;
 
                 for (var i = 0; i < 100; i ++) {
-                    should(moment(rDate2._generate()).isValid()).be.true;
+                    should(moment(rDate1._generate()).isValid()).be.true;
                 }
                 
                 done();
@@ -102,18 +101,29 @@
             it("should generate year in range", function (done) {
                 var start = 1989
                 ,   end   = 1992;
-                rDate2.params({
+                rDate1.params({
                     start : start,
                     end   : end,
                     format: "YYYY"
                 });
 
+                var genStart = false
+                ,   genEnd   = false;
                 for (var i = 0, y = 0; i < 100; i ++) {
                     y = parseInt(rDate1._generate());
+
+                    if (y === start) {
+                        genStart = true;
+                    } else if (y === end) {
+                        genEnd = true;
+                    }
+
                     should(y).not.greaterThan(end).and.not.lessThan(start);
                 }
 
-                done();
+                if (genStart && genEnd) {
+                    done();
+                }
             });
         });
     });

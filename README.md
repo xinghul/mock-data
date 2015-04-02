@@ -124,8 +124,7 @@ For now, it can generate `integer`, `date` and `ipv4`.
 
 #### Options for specific data type
 
-Integer
--------
+**Integer**
 
 Specify a range to generate integer:
 
@@ -136,8 +135,7 @@ params: {
 }
 ```
 
-Date
-----
+**Date**
 
 You can generate all the formats you want, some examples:
 ```javascript
@@ -156,8 +154,7 @@ params: {
 }
 ```
 
-Ipv4
-----
+**Ipv4**
 
 If you want to generage a specific range of ip addresses, you can pass in format containing '*' :
 

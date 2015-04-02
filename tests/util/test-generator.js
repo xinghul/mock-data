@@ -1,0 +1,148 @@
++function () {
+    "use strict";
+
+    var moment = require("moment")
+    ,   should = require("should");
+
+    var mock  = require("../../")
+    ,   utils = require("../../util/utils");
+
+    describe("Test generator", function() {
+        describe("Basic tests", function() {
+            it("should exist and is a function", function (done) {
+                mock.generate.should.exist && mock.generate.is.a.Function;
+
+                done();
+            });
+            it("should be able to take callback", function (done) {
+                mock.generate({type: "date", count: 10}, function (err, data) {
+                    done();
+                });
+            });
+            it("should be able to stream", function (done) {
+                var generator = mock.generate({type: "date", count: 10});
+
+                generator.on("data", function (data) {
+                    data.should.exist && data.should.be.a.String;
+                });
+                generator.on("end", function() {
+                    done();
+                });
+            });
+        });
+        describe("Test generate date", function() {
+            var rYear;
+            before(function() {
+                rYear  = Math.floor(Math.random() * 2000);
+            });
+            it("should generate correct date by callback", function (done) {
+                mock.generate({type: "date", count: 10, params: {start: rYear, end: rYear, format: "YYYY"}}, function (err, data) {
+                    data.should.exist && data.should.be.an.Array;
+                    data.length.should.equal(10);
+
+                    for (var i = 0; i < data.length; i ++) {
+                        parseInt(data[i]).should.equal(rYear);
+                    }
+
+                    done();
+                });
+            });
+            it("should generate correct date by stream", function (done) {
+                var generator = mock.generate({type: "date", count: 10, params: {start: rYear, end: rYear, format: "YYYY"}});
+
+                generator.on("data", function (data) {
+                    data.should.exist && data.should.be.a.String;
+
+                    parseInt(data).should.equal(rYear);
+                });
+                generator.on("end", function() {
+                    done();
+                });
+            });
+        });
+        describe("Test generate integer", function() {
+            var rStart, rEnd;
+            before(function() {
+                rStart = Math.floor(Math.random() * (Number.MAX_SAFE_INTEGER - Number.MIN_SAFE_INTEGER)) + Number.MIN_SAFE_INTEGER;
+                rEnd   = rStart + 3;
+            });
+            it("should generate correct integer by callback", function (done) {
+                mock.generate({type: "integer", count: 100, params: {start: rStart, end: rEnd}}, function (err, data) {
+                    data.should.exist && data.should.be.an.Array;
+                    data.length.should.equal(100);
+
+                    var genStart = false
+                    ,   genEnd   = false;
+                    for (var i = 0; i < data.length; i ++) {
+                        data[i].should.exist && data[i].should.be.a.Number;
+                        should(data[i]).not.be.greaterThan(rEnd).and.not.be.lessThan(rStart);
+
+                        if (data[i] === rStart) {
+                            genStart = true;
+                        } else if (data[i] === rEnd) {
+                            genEnd = true;
+                        }
+                    }
+
+                    if (genStart && genEnd) {
+                        done();
+                    } 
+                });
+            });
+            it("should generate correct integer by stream", function (done) {
+                var generator = mock.generate({type: "integer", count: 100, params: {start: rStart, end: rEnd}});
+
+                var genStart = false
+                ,   genEnd   = false;
+                generator.on("data", function (data) {
+                    data.should.exist && data.should.be.a.Number;
+                    should(data).not.be.greaterThan(rEnd).and.not.be.lessThan(rStart);
+
+                    if (data === rStart) {
+                        genStart = true;
+                    } else if (data === rEnd) {
+                        genEnd = true;
+                    }
+                });
+                generator.on("end", function() {
+                    if (genStart && genEnd) {
+                        done();
+                    }
+                });
+            });
+        });
+        describe("Test generate ipv4", function() {
+            var format, start, end;
+            before(function() {
+                format = "192.168.*.1";
+                start  = utils.ipv4ToInt("192.168.0.1");
+                end    = utils.ipv4ToInt("192.168.255.1");
+            });
+            it("should generate correct ipv4 by callback", function (done) {
+                mock.generate({type: "ipv4", count: 100, params: {format: format}}, function (err, data) {
+                    data.should.exist && data.should.be.an.Array;
+                    data.length.should.equal(100);
+
+                    for (var i = 0; i < data.length; i ++) {
+                        utils.isValidIpv4(data[i]).should.be.true;
+
+                        should(utils.ipv4ToInt(data[i])).not.be.greaterThan(end).and.not.be.lessThan(start);
+                    }
+
+                    done();
+                });
+            });
+            it("should generate correct ipv4 by stream", function (done) {
+                var generator = mock.generate({type: "ipv4", count: 100, params: {format: format}});
+
+                generator.on("data", function (data) {
+                    data.should.exist && data.should.be.a.String;
+                    should(utils.ipv4ToInt(data)).not.be.greaterThan(end).and.not.be.lessThan(start);
+                });
+                generator.on("end", function() {
+                    done();
+                });
+            });
+        });
+    });
+}();

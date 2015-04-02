@@ -4,7 +4,7 @@
   "description": "generate mock data(random number, date, etc.)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha --recursive tests"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   "dependencies": {
     "csv": "^0.4.1",
     "moment": "^2.9.0",
+    "randexp": "^0.4.0",
     "should": "^5.2.0"
   }
 }

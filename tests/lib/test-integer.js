@@ -1,10 +1,9 @@
 +function () {
     "use strict";
 
-    var should = require("should")
-    ,   moment = require("moment");
+    var should = require("should");
 
-    var rInt  = require("../").generic.integer;
+    var rInt  = require("../../").generic.integer;
 
     var rInt1, rInt2;
 
@@ -66,38 +65,39 @@
         });
 
         describe("Advance tests", function() {
+            var rStart, rEnd;
             before(function() {
                 rInt1 = rInt();
+                rStart = Math.floor(Math.random() * (Number.MAX_SAFE_INTEGER - Number.MIN_SAFE_INTEGER)) + Number.MIN_SAFE_INTEGER;
+                rEnd   = rStart + 3;
             });
-            it("should be able to generate valid integer using _generate()", function (done) {
-                rInt1._generate.should.exist && rInt1._generate.should.be.a.Function;
+            it("should be able to generate valid integer using generate()", function (done) {
+                rInt1.generate.should.exist && rInt1.generate.should.be.a.Function;
 
                 for (var i = 0; i < 100; i ++) {
-                    rInt1._generate().should.be.a.Number;
+                    rInt1.generate().should.be.a.Number;
                 }
                 
                 done();
             });
             it("should generate integer in range", function (done) {
-                var start = 1989
-                ,   end   = 1992;
                 rInt1.params({
-                    start : start,
-                    end   : end
+                    start : rStart,
+                    end   : rEnd
                 });
 
                 var genStart = false
                 ,   genEnd   = false;
                 for (var i = 0, y = 0; i < 100; i ++) {
-                    y = rInt1._generate();
+                    y = rInt1.generate();
 
-                    if (y === start) {
+                    should(y).not.be.greaterThan(rEnd).and.not.be.lessThan(rStart);
+
+                    if (y === rStart) {
                         genStart = true;
-                    } else if (y === end) {
+                    } else if (y === rEnd) {
                         genEnd = true;
                     }
-
-                    should(y).not.greaterThan(end).and.not.lessThan(start);
                 }
 
                 if (genStart && genEnd) {

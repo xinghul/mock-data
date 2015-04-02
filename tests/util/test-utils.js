@@ -1,0 +1,130 @@
++function () {
+    "use strict";
+
+    var should = require("should");
+
+    var utils  = require("../../util/utils");
+
+    describe("Test utils", function() {
+        describe("Test isNumeric()", function() {
+            var isNumeric;
+            before(function() {
+                isNumeric = utils.isNumeric;
+            });
+            it("should exist and is a function", function (done) {
+                isNumeric.should.exist && isNumeric.should.be.a.Function;
+
+                done();
+            });
+            it("should be able to check if target is numeric", function (done) {
+                isNumeric("123").should.be.true;
+                isNumeric("123.123").should.be.true;
+                isNumeric("+123").should.be.true;
+                isNumeric("-123").should.be.true;
+                isNumeric(123).should.be.true;
+                isNumeric(-123).should.be.true;
+                isNumeric(123.123).should.be.true;
+
+                isNumeric("").should.be.false;
+                isNumeric("12!3").should.be.false;
+                isNumeric({name: "levi"}).should.be.false;
+                isNumeric([1, 2, 3]).should.be.false;
+
+                done();
+            });
+        });
+
+        describe("Test isIpv4Format()", function() {
+            var isIpv4Format;
+            before(function() {
+                isIpv4Format = utils.isIpv4Format;
+            });
+            it("should exist and is a function", function (done) {
+                isIpv4Format.should.exist && isIpv4Format.should.be.a.Function;
+
+                done();
+            });
+            it("should be able to check if target string is a valid ipv4 format", function (done) {
+                isIpv4Format("*.*.*.*").should.be.true;
+                isIpv4Format("192.168.*.*").should.be.true;
+                isIpv4Format("10.0.0.1").should.be.true;
+
+                isIpv4Format("*.*.*.").should.be.false;
+                isIpv4Format("192.168.1").should.be.false;
+                isIpv4Format("-192.168.*.*").should.be.false;
+                isIpv4Format("192.1*8.*.*").should.be.false;
+                isIpv4Format("10.0.0.1.1").should.be.false;
+                isIpv4Format(123).should.be.false;
+                isIpv4Format({name: "levi"}).should.be.false;
+                isIpv4Format([1, 2, 3]).should.be.false;
+
+                done();
+            });
+        });
+
+        describe("Test isValidIpv4()", function() {
+            var isValidIpv4;
+            before(function() {
+                isValidIpv4 = utils.isValidIpv4;
+            });
+            it("should exist and is a function", function (done) {
+                isValidIpv4.should.exist && isValidIpv4.should.be.a.Function;
+
+                done();
+            });
+            it("should be able to check if target string is a valid ipv4", function (done) {
+                isValidIpv4("192.168.0.1").should.be.true;
+                isValidIpv4("10.0.0.1").should.be.true;
+
+                isValidIpv4("*.*.*.*").should.be.false;
+                isValidIpv4("192.168.*.1").should.be.false;
+                isValidIpv4("10.0.0.1.1").should.be.false;
+                isValidIpv4("10.0.1").should.be.false;
+                isValidIpv4(123).should.be.false;
+                isValidIpv4({name: "levi"}).should.be.false;
+                isValidIpv4([1, 2, 3]).should.be.false;
+
+                done();
+            });
+        });
+
+        describe("Test ipv4ToInt()", function() {
+            var ipv4ToInt;
+            before(function() {
+                ipv4ToInt = utils.ipv4ToInt;
+            });
+            it("should exist and is a function", function (done) {
+                ipv4ToInt.should.exist && ipv4ToInt.should.be.a.Function;
+
+                done();
+            });
+            it("should return the correct integer based on given valid ipv4", function (done) {
+                ipv4ToInt("127.0.0.1").should.equal(2130706433);
+                ipv4ToInt("207.135.66.186").should.equal(3481748154);
+                ipv4ToInt("192.168.0.1").should.equal(3232235521);
+
+                done();
+            });
+        });
+
+        describe("Test intToIpv4()", function() {
+            var intToIpv4;
+            before(function() {
+                intToIpv4 = utils.intToIpv4;
+            });
+            it("should exist and is a function", function (done) {
+                intToIpv4.should.exist && intToIpv4.should.be.a.Function;
+
+                done();
+            });
+            it("should return the correct ipv4 based on given valid integer", function (done) {
+                intToIpv4(2130706433).should.equal("127.0.0.1");
+                intToIpv4(3481748154).should.equal("207.135.66.186");
+                intToIpv4(3232235521).should.equal("192.168.0.1");
+                intToIpv4("3232235521").should.equal("192.168.0.1");
+
+                done();
+            });
+        });
+    });
+}();

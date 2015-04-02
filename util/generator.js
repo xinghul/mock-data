@@ -16,9 +16,15 @@
         this._source = null;
         this._count = options.count || 10;
 
-        switch (options.type) {
+        switch (options.type.toLowerCase()) {
             case "date":
                 this._source = require("../lib/date")();
+                break;
+            case "integer":
+                this._source = require("../lib/integer")();
+                break;
+            case "ipv4":
+                this._source = require("../lib/ipv4")();
                 break;
             default: 
                 this._source = require("../lib/date")();
@@ -35,7 +41,7 @@
             return this.push(null);
         }
 
-        this.push(this._source._generate());
+        this.push(this._source.generate());
 
         this._count --;
     };
@@ -43,14 +49,14 @@
     module.exports = function() {
         var args = [].slice.call(arguments)
         ,   options
-        ,   _callback;
+        ,   __callback;
 
         if (args.length === 2) {
             options = args[0];
-            _callback = args[1];
+            __callback = args[1];
         } else if (args.length === 1) {
             if (typeof args[0] === "function") {
-                _callback = args[0];
+                __callback = args[0];
             } else {
                 options = args[0];
             }
@@ -62,15 +68,15 @@
 
         var generator = new Generator(options);
 
-        if (_callback) {
+        if (__callback) {
             var _data = [];
             generator.on("data", function (data) {
                 _data.push(data);
             });
             generator.on("end", function() {
-                return _callback(null, options.objectMode ? _data : _data.join(''));
+                return __callback(null, options.objectMode ? _data : _data.join(''));
             });
-            generator.on("error", _callback);
+            generator.on("error", __callback);
         }
 
         return generator;

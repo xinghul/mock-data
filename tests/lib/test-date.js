@@ -4,7 +4,7 @@
     var should = require("should")
     ,   moment = require("moment");
 
-    var rDate  = require("../").generic.date;
+    var rDate  = require("../../").generic.date;
 
     var rDate1, rDate2;
 
@@ -89,11 +89,11 @@
             before(function() {
                 rDate1 = rDate();
             });
-            it("should be able to generate valid date using _generate()", function (done) {
-                rDate1._generate.should.exist && rDate1._generate.should.be.a.Function;
+            it("should be able to generate valid date using generate()", function (done) {
+                rDate1.generate.should.exist && rDate1.generate.should.be.a.Function;
 
                 for (var i = 0; i < 100; i ++) {
-                    should(moment(rDate1._generate()).isValid()).be.true;
+                    should(moment(rDate1.generate()).isValid()).be.true;
                 }
                 
                 done();
@@ -110,7 +110,7 @@
                 var genStart = false
                 ,   genEnd   = false;
                 for (var i = 0, y = 0; i < 100; i ++) {
-                    y = parseInt(rDate1._generate());
+                    y = parseInt(rDate1.generate());
 
                     if (y === start) {
                         genStart = true;

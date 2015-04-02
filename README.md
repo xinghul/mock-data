@@ -34,7 +34,7 @@ var mock = require("mock-data");
 
 You can get the data from either callback or stream.
 
-### Callback example
+#### Callback example
 
 generate integer in given range:
 
@@ -54,7 +54,7 @@ mock.generate({type: "date", count: 10, params: {start: 1980, end: 2015, format:
 
 ......
 
-### Stream example
+#### Stream example
 
 generate integer:
 
@@ -102,13 +102,14 @@ mock.generate({
 }[, callback])
 ```
 
-### Support date types
+#### Support date types
 
 For now, it can generate `integer`, `date` and `ipv4`.
 
-### Options for specific data type
+#### Options for specific data type
 
-#### Integer
+Integer
+-------
 
 Specify a range to generate integer:
 
@@ -119,7 +120,8 @@ params: {
 }
 ```
 
-#### Date
+Date
+----
 
 You can generate all the formats you want, some examples:
 ```javascript
@@ -138,7 +140,8 @@ params: {
 }
 ```
 
-#### Ipv4
+Ipv4
+----
 
 If you want to generage a specific range of ip addresses, you can pass in format containing '*' :
 

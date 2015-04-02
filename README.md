@@ -8,7 +8,12 @@
 | )   ( || (___) || (____/\|  /  \ \           | (__/  )| )   ( |   | |   | )   ( |
 |/     \|(_______)(_______/|_/    \/           (______/ |/     \|   )_(   |/     \|  
 
-Generate random data(integer, date, ipv4, etc...) with options(range, count, etc...), support callback and stream.
+Generate random data(integer, date, ipv4, etc...) 
+
+With options(range, count, format, etc...)
+
+Support callback and stream.
+
 </pre>
 
 ## Documentation

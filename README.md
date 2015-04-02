@@ -39,17 +39,25 @@ You can get the data from either callback or stream.
 generate integer in given range:
 
 ```javascript
-mock.generate({type: "integer", count: 100, params: {start: -2000, end: 2000}}, function (err, data) {
-    // data is an Array of integers range from -2000 to 2000
-});
+mock.generate({
+                type: "integer", 
+                count: 100, 
+                params: {start: -2000, end: 2000}
+            }, function (err, data) {
+                // data is an Array of integers range from -2000 to 2000
+            });
 ```
 
 generate date in given format:
 
 ```javascript
-mock.generate({type: "date", count: 10, params: {start: 1980, end: 2015, format: "MMMM Do YYYY, h:mm:ss a"}}, function (err, data) {
-    // data is an Array of strings (date) in given format and range
-});
+mock.generate({
+                type: "date", 
+                count: 10, 
+                params: {start: 1980, end: 2015, format: "MMMM Do YYYY, h:mm:ss a"}
+            }, function (err, data) {
+                // data is an Array of strings (date) in given format and range
+            });
 ```
 
 ......
@@ -59,7 +67,11 @@ mock.generate({type: "date", count: 10, params: {start: 1980, end: 2015, format:
 generate integer:
 
 ```javascript
-var generator = mock.generate({type: "integer", count: 10, params: {start: 1980, end: 2015}});
+var generator = mock.generate({
+                                type: "integer", 
+                                count: 10, 
+                                params: {start: 1980, end: 2015}
+                            });
 
 generator.on("data", function (data) {
     // deal with data
@@ -75,7 +87,11 @@ generator.on("end", function() {
 generate date:
 
 ```javascript
-var generator = mock.generate({type: "date", count: 10, params: {start: 1980, end: 2015, format: "YYYY-MM-DD HH:mm Z"}});
+var generator = mock.generate({
+                                type: "date", 
+                                count: 10, 
+                                params: {start: 1980, end: 2015, format: "YYYY-MM-DD HH:mm Z"}
+                            });
 
 generator.on("data", function (data) {
     // deal with data

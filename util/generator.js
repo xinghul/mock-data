@@ -1,85 +1,87 @@
-+function (undefined) {
-    "use strict";
++ function(undefined) {
+  "use strict";
 
-    var stream = require("stream")
-    ,   util   = require("util");
+  var stream = require("stream")
+  ,   util = require("util");
 
-    var Readable = stream.Readable;
-    util.inherits(Generator, Readable);
+  var Readable = stream.Readable;
+  util.inherits(Generator, Readable);
 
-    function Generator(options) {
-        // turn on objectMode by default
-        if (options.objectMode === undefined) {
-            options.objectMode = true;
-        }
-
-        this._source = null;
-        this._count = options.count || 10;
-
-        switch (options.type.toLowerCase()) {
-            case "date":
-                this._source = require("../lib/date")();
-                break;
-            case "integer":
-                this._source = require("../lib/integer")();
-                break;
-            case "ipv4":
-                this._source = require("../lib/ipv4")();
-                break;
-            default: 
-                this._source = require("../lib/date")();
-                break;
-        }
-        // set params for specific source
-        this._source.params(options.params);
-
-        Readable.call(this, options);
+  function Generator(options) {
+    // turn on objectMode by default
+    if (options.objectMode === undefined) {
+      options.objectMode = true;
     }
 
-    Generator.prototype._read = function() {
-        if (this._count <= 0) {
-            return this.push(null);
-        }
+    this._source = null;
+    this._count = options.count || 10;
 
-        this.push(this._source.generate());
+    switch (options.type.toLowerCase()) {
+      case "string":
+        this._source = require("../lib/string")();
+        break;
+      case "date":
+        this._source = require("../lib/date")();
+        break;
+      case "integer":
+        this._source = require("../lib/integer")();
+        break;
+      case "ipv4":
+        this._source = require("../lib/ipv4")();
+        break;
+      default:
+        this._source = require("../lib/string")();
+        break;
+    }
+    // set params for specific source
+    this._source.params(options.params);
 
-        this._count --;
-    };
+    Readable.call(this, options);
+  }
 
-    module.exports = function() {
-        var args = [].slice.call(arguments)
-        ,   options
-        ,   __callback;
+  Generator.prototype._read = function() {
+    if (this._count <= 0) {
+      return this.push(null);
+    }
 
-        if (args.length === 2) {
-            options = args[0];
-            __callback = args[1];
-        } else if (args.length === 1) {
-            if (typeof args[0] === "function") {
-                __callback = args[0];
-            } else {
-                options = args[0];
-            }
-        }
+    this.push(this._source.generate());
 
-        if (!options) {
-            options = {};
-        }
+    this._count--;
+  };
 
-        var generator = new Generator(options);
+  module.exports = function() {
+    var args = [].slice.call(arguments),
+      options, __callback;
 
-        if (__callback) {
-            var _data = [];
-            generator.on("data", function (data) {
-                _data.push(data);
-            });
-            generator.on("end", function() {
-                return __callback(null, options.objectMode ? _data : _data.join(''));
-            });
-            generator.on("error", __callback);
-        }
+    if (args.length === 2) {
+      options = args[0];
+      __callback = args[1];
+    } else if (args.length === 1) {
+      if (typeof args[0] === "function") {
+        __callback = args[0];
+      } else {
+        options = args[0];
+      }
+    }
 
-        return generator;
-    };
+    if (!options) {
+      options = {};
+    }
+
+    var generator = new Generator(options);
+
+    if (__callback) {
+      var _data = [];
+      generator.on("data", function(data) {
+        _data.push(data);
+      });
+      generator.on("end", function() {
+        return __callback(null, options.objectMode ? _data : _data.join(''));
+      });
+      generator.on("error", __callback);
+    }
+
+    return generator;
+  };
 
 }();

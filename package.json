@@ -1,6 +1,6 @@
 {
   "name": "mock-data",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "generate mock data (random string, number, date, ipv4, etc.)",
   "main": "index.js",
   "scripts": {

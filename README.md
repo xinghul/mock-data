@@ -125,12 +125,9 @@ mock.generate({
 }[, callback])
 ```
 
-#### Support date types
+#### Supported data types
 
-For now, it can generate `string`, `integer`, `date` and `ipv4`.
-
-#### Options for specific data type
-
+For now, it supports `string`, `integer`, `date` and `ipv4`.
 
 **String**
 
@@ -213,7 +210,7 @@ For example, `"192.168.*.*"` will generate ip addresses in class C:
 
 ```javascript
 params: {
-  format: (default *.*.*.*)
+  format: (default "*.*.*.*")
 }
 ```
 

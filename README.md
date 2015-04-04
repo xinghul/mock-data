@@ -127,7 +127,7 @@ mock.generate({
 
 #### Support date types
 
-For now, it can generate `integer`, `date` and `ipv4`.
+For now, it can generate `string`, `integer`, `date` and `ipv4`.
 
 #### Options for specific data type
 
@@ -135,7 +135,6 @@ For now, it can generate `integer`, `date` and `ipv4`.
 **String**
 
 Specify length range and charset to generate string :
-
 ```javascript
 params: {
   minLength: (default 16),
@@ -158,13 +157,12 @@ For example, `include` with value "a#" will generate strings like this:
 "5hy4lm78jdq2zqmo3px11r8aubi3kgs7t2blwdzb6f1yogihac"
 "6msnskfdf6eyslnm9empq0g4nelf7p6z4qfpdsjuvsqztbpe58pwg"
 "vp8uoru82x9eb5pg7umq1v3d4wqrm9cfzshvxcx02vcrebh42o"
-......
+"......"
 ```
 
 **Integer**
 
 Specify a range to generate integer:
-
 ```javascript
 params: {
   start: (default Number.MIN_SAFE_INTEGER),
@@ -190,12 +188,29 @@ params: {
   isUTC: (default false)
 }
 ```
+If you don't specify the format, it will generate dates like this:
+```javascript
+"1988-10-05T20:05:15-07:00"
+"2014-11-14T15:59:50-08:00"
+"1997-03-23T17:52:09-08:00"
+"1992-10-29T12:19:32-08:00"
+"......"
+```
 
 **Ipv4**
 
-If you want to generate a specific range of ip addresses, you can pass in format containing '*' :
+To generate a specific range of ip addresses, you need to pass in format containing '*' :
 
-For example, `"192.168.*.*"` will generate ip addresses in class C.
+For example, `"192.168.*.*"` will generate ip addresses in class C:
+```javascript
+"192.168.192.206"
+"192.168.161.196"
+"192.168.9.135"
+"192.168.223.172"
+"192.168.31.215"
+"......"
+```
+
 ```javascript
 params: {
   format: (default *.*.*.*)

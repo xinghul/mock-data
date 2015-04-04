@@ -9,7 +9,7 @@
 
   function Generator(options) {
     // turn on objectMode by default
-    if (options.objectMode === undefined) {
+    if (options.objectMode !== false) {
       options.objectMode = true;
     }
 
@@ -50,8 +50,9 @@
   };
 
   module.exports = function() {
-    var args = [].slice.call(arguments),
-      options, __callback;
+    var args = [].slice.call(arguments)
+    ,   options
+    ,   __callback;
 
     if (args.length === 2) {
       options = args[0];

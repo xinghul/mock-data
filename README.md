@@ -1,4 +1,5 @@
 <pre>
+
  _______  _______  _______  _               ______   _______ _________ _______
 (       )(  ___  )(  ____ \| \    /\       (  __  \ (  ___  )\__   __/(  ___  )
 | () () || (   ) || (    \/|  \  / /       | (  \  )| (   ) |   ) (   | (   ) |
@@ -114,11 +115,11 @@ generator.on("end", function() {
 
 ## API
 
-Default date type is date, default count is 10000.
+Default date type is string, default count is 10000.
 
 ```javascript
 mock.generate({
-  type: "integer/date/ipv4/...",
+  type: "string/integer/date/ipv4/...",
   count: "...",
   params: "options for specific data type"
 }[, callback])
@@ -130,6 +131,35 @@ For now, it can generate `integer`, `date` and `ipv4`.
 
 #### Options for specific data type
 
+
+**String**
+
+Specify length range and charset to generate string :
+
+```javascript
+params: {
+  minLength: (default 16),
+  maxLength: (default 32),
+  include  : (default "aA#!")
+}
+```
+The generated random string will have a length between in [`minLength`, `maxLength`], `include` sets which charset to include:
+```javascript
+'a': "abcdefghijklmnopqrstuvwxyz" ([a-z])
+'A': "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ([A-Z])
+'#': "0123456789" ([0-9])
+"!": [^a-zA-Z0-9]
+```
+
+For example, `include` with value "a#" will generate strings like this:
+```javascript
+"nob21hcdtv9n93ixqhz8nsuw7grdp4brszr4g8tyka66pjtjlh"
+"y1a6xuhhgsopbqnb8wqjtx920zmnbgg7u4kw07u3gullm38t6sg"
+"5hy4lm78jdq2zqmo3px11r8aubi3kgs7t2blwdzb6f1yogihac"
+"6msnskfdf6eyslnm9empq0g4nelf7p6z4qfpdsjuvsqztbpe58pwg"
+"vp8uoru82x9eb5pg7umq1v3d4wqrm9cfzshvxcx02vcrebh42o"
+......
+```
 
 **Integer**
 

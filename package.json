@@ -1,7 +1,7 @@
 {
   "name": "mock-data",
   "version": "1.4.0",
-  "description": "generate mock data (random number, date, ipv4, etc.)",
+  "description": "generate mock data (random string, number, date, ipv4, etc.)",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive tests"

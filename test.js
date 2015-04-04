@@ -1,8 +1,12 @@
 +function (undefined) {
     "use strict";
 
-    var mock = require(".");
+    var rStr = require("./lib/string");
 
-    
+    var str = rStr();
 
+    console.log(str.params({
+      include: "a#",
+      maxLength: 48
+    }));
 }();

@@ -19,24 +19,39 @@
       });
       it("should be able to set params by construct and get params directly", function(done) {
         str = rStr();
-        (str._include).should.equal("aA#!");
-        (str._length).should.equal(32);
+        (str.include).should.equal("aA#!");
+        (str.maxLength).should.equal(32);
+        (str.minLength).should.equal(16);
 
-        str = rStr("aA!", 64);
-        (str._include).should.equal("aA!");
-        (str._length).should.equal(64);
+        str = rStr(64, "aA!");
+        (str.include).should.equal("aA!");
+        (str.maxLength).should.equal(64);
+        (str.minLength).should.equal(16);
 
         str = rStr("a#!");
-        (str._include).should.equal("a#!");
-        (str._length).should.equal(32);
+        (str.include).should.equal("a#!");
+        (str.maxLength).should.equal(32);
+        (str.minLength).should.equal(16);
 
         str = rStr(36);
-        (str._include).should.equal("aA#!");
-        (str._length).should.equal(36);
+        (str.include).should.equal("aA#!");
+        (str.maxLength).should.equal(36);
+        (str.minLength).should.equal(16);
 
-        str = rStr({include: "a#", length: 36});
-        (str._include).should.equal("a#");
-        (str._length).should.equal(36);
+        str = rStr(8, 36);
+        (str.include).should.equal("aA#!");
+        (str.maxLength).should.equal(36);
+        (str.minLength).should.equal(8);
+
+        str = rStr(8, 72, "asdA$");
+        (str.include).should.equal("aA");
+        (str.maxLength).should.equal(72);
+        (str.minLength).should.equal(8);
+
+        str = rStr({include: "a#", maxLength: 36, minLength: 12});
+        (str.include).should.equal("a#");
+        (str.maxLength).should.equal(36);
+        (str.minLength).should.equal(12);
 
         done();
       });
@@ -48,15 +63,17 @@
 
         params.should.be.an.Object;
         should(params.include).equal("aA#!");
-        should(params.length).equal(32);
+        should(params.maxLength).equal(32);
+        should(params.minLength).equal(16);
 
-        str = rStr("aA", 48);
+        str = rStr(48, "aA");
 
         params = str.params();
 
         params.should.be.an.Object;
         should(params.include).equal("aA");
-        should(params.length).equal(48);
+        should(params.maxLength).equal(48);
+        should(params.minLength).equal(16);
 
         done();
       });
@@ -66,44 +83,38 @@
 
         var newParams = {
           include: "a#",
-          length: 32
+          maxLength: 48
         };
         var afterSetParams = str.params(newParams);
         afterSetParams.should.be.an.Object;
         should(afterSetParams.include).equal(newParams.include);
-        should(afterSetParams.length).equal(newParams.length);
-
-        str.params({
-          include: "abcd#",
-          length: -43
-        });
-        should(str._include).equal("a#");
-        should(str._length).equal(32);
-
-        str.params({
-          include: null,
-          length: null
-        });
-        should(str._include).equal("a#");
-        should(str._length).equal(32);
+        should(afterSetParams.maxLength).equal(newParams.maxLength);
+        should(afterSetParams.minLength).equal(16);
 
         done();
       });
       it("should generate a new object each time calling rStr()", function(done) {
         str = rStr("aA");
-        str1 = rStr("#!", 64);
+        str1 = rStr(12, 64, "#!");
 
-        should(str._include).not.equal(str1._include);
-        should(str._length).not.equal(str1._length);
+        should(str.include).not.equal(str1.include);
+        should(str.maxLength).not.equal(str1.maxLength);
+        should(str.minLength).not.equal(str1.minLength);
 
         done();
       });
     });
 
     describe("Advance tests", function() {
-      var str, rLength, rInclude;
+      var str, rMaxLength, rMinLength, rInclude;
       before(function() {
-        rLength = Math.floor(Math.random() * 64) + 1;
+        rMaxLength = Math.floor(Math.random() * 64) + 1;
+        rMinLength = Math.floor(Math.random() * 64) + 1;
+        if (rMaxLength < rMinLength) {
+          var tmp = rMaxLength;
+          rMaxLength = rMinLength;
+          rMinLength = tmp;
+        }
 
         rInclude = "";
         rInclude += Math.random() > 0.5 ? "a" : "";
@@ -111,7 +122,7 @@
         rInclude += Math.random() > 0.5 ? "#" : "";
         rInclude += Math.random() > 0.5 ? "!" : "";
 
-        str = rStr(rInclude, rLength);
+        str = rStr(rInclude, rMaxLength, rMinLength);
 
       });
       it("should expose function generate()", function(done) {
@@ -122,7 +133,8 @@
       it("should generate string with given params", function(done) {
         for (var i = 0, result; i < 100; i++) {
           result = str.generate();
-          result.should.be.a.String && result.length.should.equal(rLength);
+          result.should.be.a.String;
+          should(result.length).not.greaterThan(rMaxLength).and.not.lessThan(rMinLength);
 
           utils.isValidString(result, rInclude).should.be.true;
         }

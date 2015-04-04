@@ -122,8 +122,7 @@
         rInclude += Math.random() > 0.5 ? "#" : "";
         rInclude += Math.random() > 0.5 ? "!" : "";
 
-        str = rStr(rInclude, rMaxLength, rMinLength);
-
+        str = rStr(rMinLength, rMaxLength, rInclude);
       });
       it("should expose function generate()", function(done) {
         str.generate.should.exist && str.generate.should.be.a.Function;
@@ -131,15 +130,26 @@
         done();
       });
       it("should generate string with given params", function(done) {
-        for (var i = 0, result; i < 100; i++) {
+        var genStart = false
+        ,   genEnd   = false;
+        for (var i = 0, result; i < 1000; i++) {
           result = str.generate();
           result.should.be.a.String;
           should(result.length).not.greaterThan(rMaxLength).and.not.lessThan(rMinLength);
 
           utils.isValidString(result, rInclude).should.be.true;
+
+          if (result.length === rMinLength) {
+            genStart = true;
+          } else if (result.length === rMaxLength) {
+            genEnd = true;
+          }
         }
 
-        done();
+        if (genStart && genEnd) {
+          done();
+        }
+
       });
     });
   });

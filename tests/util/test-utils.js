@@ -12,7 +12,7 @@
         isNumeric = utils.isNumeric;
       });
       it("should exist and is a function", function(done) {
-        isNumeric.should.exist && isNumeric.should.be.a.Function;
+        should.exist(isNumeric) && isNumeric.should.be.a.Function;
 
         done();
       });
@@ -42,7 +42,7 @@
         isIpv4Format = utils.isIpv4Format;
       });
       it("should exist and is a function", function(done) {
-        isIpv4Format.should.exist && isIpv4Format.should.be.a.Function;
+        should.exist(isIpv4Format) && isIpv4Format.should.be.a.Function;
 
         done();
       });
@@ -72,7 +72,7 @@
         isValidIpv4 = utils.isValidIpv4;
       });
       it("should exist and is a function", function(done) {
-        isValidIpv4.should.exist && isValidIpv4.should.be.a.Function;
+        should.exist(isValidIpv4) && isValidIpv4.should.be.a.Function;
 
         done();
       });
@@ -100,7 +100,7 @@
         ipv4ToInt = utils.ipv4ToInt;
       });
       it("should exist and is a function", function(done) {
-        ipv4ToInt.should.exist && ipv4ToInt.should.be.a.Function;
+        should.exist(ipv4ToInt) && ipv4ToInt.should.be.a.Function;
 
         done();
       });
@@ -119,7 +119,7 @@
         intToIpv4 = utils.intToIpv4;
       });
       it("should exist and is a function", function(done) {
-        intToIpv4.should.exist && intToIpv4.should.be.a.Function;
+        should.exist(intToIpv4) && intToIpv4.should.be.a.Function;
 
         done();
       });
@@ -139,7 +139,7 @@
         isValidString = utils.isValidString;
       });
       it("should exist and is a function", function(done) {
-        isValidString.should.exist && isValidString.should.be.a.Function;
+        should.exist(isValidString) && isValidString.should.be.a.Function;
 
         done();
       });

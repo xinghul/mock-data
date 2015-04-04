@@ -13,7 +13,7 @@
         rInt1 = rInt();
       });
       it("should exist and is a function", function(done) {
-        rInt.should.exist && rInt.should.be.a.Function;
+        should.exist(rInt) && rInt.should.be.a.Function;
 
         done();
       });
@@ -26,7 +26,7 @@
         done();
       });
       it("should be able to get params by params()", function(done) {
-        rInt1.params.should.exist && rInt1.params.should.be.a.Function;
+        should.exist(rInt1.params) && rInt1.params.should.be.a.Function;
 
         var params = rInt1.params();
 
@@ -37,7 +37,7 @@
         done();
       });
       it("should be able to set params by params()", function(done) {
-        rInt1.params.should.exist && rInt1.params.should.be.a.Function;
+        should.exist(rInt1.params) && rInt1.params.should.be.a.Function;
 
         var newParams = {
           start: 1989,
@@ -68,11 +68,13 @@
       var rStart, rEnd;
       before(function() {
         rInt1 = rInt();
-        rStart = Math.floor(Math.random() * (Number.MAX_SAFE_INTEGER - Number.MIN_SAFE_INTEGER)) + Number.MIN_SAFE_INTEGER;
+        rStart = Math.floor(
+          Math.random() * (Number.MAX_SAFE_INTEGER - Number.MIN_SAFE_INTEGER)
+        ) + Number.MIN_SAFE_INTEGER;
         rEnd = rStart + 3;
       });
       it("should be able to generate valid integer using generate()", function(done) {
-        rInt1.generate.should.exist && rInt1.generate.should.be.a.Function;
+        should.exist(rInt1.generate) && rInt1.generate.should.be.a.Function;
 
         for (var i = 0; i < 100; i++) {
           rInt1.generate().should.be.a.Number;

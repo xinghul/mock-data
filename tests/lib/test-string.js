@@ -13,7 +13,7 @@
         str = rStr();
       });
       it("should exist and is a function", function(done) {
-        rStr.should.exist && rStr.should.be.a.Function;
+        should.exist(rStr.should) && rStr.should.be.a.Function;
 
         done();
       });
@@ -58,7 +58,7 @@
       it("should be able to get correct params by params()", function(done) {
         str = rStr();
 
-        str.params.should.exist && str.params.should.be.a.Function;
+        should.exist(str.params) && str.params.should.be.a.Function;
         var params = str.params();
 
         params.should.be.an.Object;
@@ -79,7 +79,7 @@
       });
       it("should be able to set valid params by params()", function(done) {
         str = rStr();
-        str.params.should.exist && str.params.should.be.a.Function;
+        should.exist(str.params) && str.params.should.be.a.Function;
 
         var newParams = {
           include: "a#",
@@ -125,7 +125,7 @@
         str = rStr(rMinLength, rMaxLength, rInclude);
       });
       it("should expose function generate()", function(done) {
-        str.generate.should.exist && str.generate.should.be.a.Function;
+        should.exist(str.generate) && str.generate.should.be.a.Function;
 
         done();
       });

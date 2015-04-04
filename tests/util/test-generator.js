@@ -10,7 +10,7 @@
   describe("Test generator", function() {
     describe("Basic tests", function() {
       it("should exist and is a function", function(done) {
-        mock.generate.should.exist && mock.generate.is.a.Function;
+        should.exist(mock.generate) && mock.generate.is.a.Function;
 
         done();
       });
@@ -29,13 +29,78 @@
         });
 
         generator.on("data", function(data) {
-          data.should.exist && data.should.be.a.String;
+          should.exist(data) && data.should.be.a.String;
         });
         generator.on("end", function() {
           done();
         });
       });
     });
+
+    describe("Test generate string", function() {
+      var rMaxLength, rMinLength, rInclude;
+      before(function() {
+        rMaxLength = Math.floor(Math.random() * 64) + 1;
+        rMinLength = Math.floor(Math.random() * 64) + 1;
+        if (rMaxLength < rMinLength) {
+          var tmp = rMaxLength;
+          rMaxLength = rMinLength;
+          rMinLength = tmp;
+        }
+
+        rInclude = "";
+        rInclude += Math.random() > 0.5 ? "a" : "";
+        rInclude += Math.random() > 0.5 ? "A" : "";
+        rInclude += Math.random() > 0.5 ? "#" : "";
+        rInclude += Math.random() > 0.5 ? "!" : "";
+      });
+      it("should generate correct string by callback", function(done) {
+        mock.generate({
+          type: "string",
+          count: 100,
+          params: {
+            minLength: rMinLength,
+            maxLength: rMaxLength,
+            include  : rInclude
+          }
+        }, function(err, data) {
+          should.exist(data) && data.should.be.an.Array;
+          data.length.should.equal(100);
+
+          for (var i = 0; i < data.length; i++) {
+            utils.isValidString(data[i], rInclude).should.be.true;
+
+            should(data[i].length).not.be.greaterThan(rMaxLength)
+                              .and.not.be.lessThan(rMinLength);
+          }
+
+          done();
+        });
+      });
+      it("should generate correct string by stream", function(done) {
+        var generator = mock.generate({
+          type: "string",
+          count: 100,
+          params: {
+            minLength: rMinLength,
+            maxLength: rMaxLength,
+            include  : rInclude
+          }
+        });
+
+        generator.on("data", function(data) {
+          should.exist(data) && data.should.be.a.String;
+
+          utils.isValidString(data, rInclude).should.be.true;
+          should(data.length).not.be.greaterThan(rMaxLength)
+                            .and.not.be.lessThan(rMinLength);
+        });
+        generator.on("end", function() {
+          done();
+        });
+      });
+    });
+
     describe("Test generate date", function() {
       var rYear;
       before(function() {
@@ -51,7 +116,7 @@
             format: "YYYY"
           }
         }, function(err, data) {
-          data.should.exist && data.should.be.an.Array;
+          should.exist(data) && data.should.be.an.Array;
           data.length.should.equal(10);
 
           for (var i = 0; i < data.length; i++) {
@@ -73,7 +138,7 @@
         });
 
         generator.on("data", function(data) {
-          data.should.exist && data.should.be.a.String;
+          should.exist(data) && data.should.be.a.String;
 
           parseInt(data).should.equal(rYear);
         });
@@ -97,13 +162,13 @@
             end: rEnd
           }
         }, function(err, data) {
-          data.should.exist && data.should.be.an.Array;
+          should.exist(data) && data.should.be.an.Array;
           data.length.should.equal(100);
 
           var genStart = false,
             genEnd = false;
           for (var i = 0; i < data.length; i++) {
-            data[i].should.exist && data[i].should.be.a.Number;
+            should.exist(data[i]) && data[i].should.be.a.Number;
             should(data[i]).not.be.greaterThan(rEnd).and.not.be.lessThan(rStart);
 
             if (data[i] === rStart) {
@@ -131,7 +196,7 @@
         var genStart = false,
           genEnd = false;
         generator.on("data", function(data) {
-          data.should.exist && data.should.be.a.Number;
+          should.exist(data) && data.should.be.a.Number;
           should(data).not.be.greaterThan(rEnd).and.not.be.lessThan(rStart);
 
           if (data === rStart) {
@@ -147,6 +212,7 @@
         });
       });
     });
+
     describe("Test generate ipv4", function() {
       var format, start, end;
       before(function() {
@@ -162,7 +228,7 @@
             format: format
           }
         }, function(err, data) {
-          data.should.exist && data.should.be.an.Array;
+          should.exist(data) && data.should.be.an.Array;
           data.length.should.equal(100);
 
           for (var i = 0; i < data.length; i++) {
@@ -184,7 +250,7 @@
         });
 
         generator.on("data", function(data) {
-          data.should.exist && data.should.be.a.String;
+          should.exist(data) && data.should.be.a.String;
           should(utils.ipv4ToInt(data)).not.be.greaterThan(end).and.not.be.lessThan(start);
         });
         generator.on("end", function() {
@@ -192,5 +258,6 @@
         });
       });
     });
+
   });
 }();

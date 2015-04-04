@@ -14,7 +14,7 @@
         rDate1 = rDate();
       });
       it("should exist and is a function", function(done) {
-        rDate.should.exist && rDate.should.be.a.Function;
+        should.exist(rDate) && rDate.should.be.a.Function;
 
         done();
       });
@@ -27,7 +27,7 @@
         done();
       });
       it("should have default params and be able to get params by params()", function(done) {
-        rDate1.params.should.exist && rDate1.params.should.be.a.Function;
+        should.exist(rDate1.params) && rDate1.params.should.be.a.Function;
 
         var params = rDate1.params();
 
@@ -40,7 +40,7 @@
         done();
       });
       it("should be able to set params by params()", function(done) {
-        rDate1.params.should.exist && rDate1.params.should.be.a.Function;
+        should.exist(rDate1.params) && rDate1.params.should.be.a.Function;
 
         var newParams = {
           start: 1989,
@@ -90,7 +90,7 @@
         rDate1 = rDate();
       });
       it("should be able to generate valid date using generate()", function(done) {
-        rDate1.generate.should.exist && rDate1.generate.should.be.a.Function;
+        should.exist(rDate1.generate) && rDate1.generate.should.be.a.Function;
 
         for (var i = 0; i < 100; i++) {
           should(moment(rDate1.generate()).isValid()).be.true;

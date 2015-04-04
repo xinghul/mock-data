@@ -13,7 +13,7 @@
         ip = rIpv4();
       });
       it("should exist and is a function", function(done) {
-        rIpv4.should.exist && rIpv4.should.be.a.Function;
+        should.exist(rIpv4) && rIpv4.should.be.a.Function;
 
         done();
       });
@@ -25,7 +25,7 @@
         done();
       });
       it("should be able to get params by params()", function(done) {
-        ip.params.should.exist && ip.params.should.be.a.Function;
+        should.exist(ip.params) && ip.params.should.be.a.Function;
 
         var params = ip.params();
 
@@ -35,7 +35,7 @@
         done();
       });
       it("should be able to set params by params()", function(done) {
-        ip.params.should.exist && ip.params.should.be.a.Function;
+        should.exist(ip.params) && ip.params.should.be.a.Function;
 
         var newParams = {
           format: "10.0.0.1"
@@ -64,7 +64,7 @@
         ip = rIpv4();
       });
       it("should expose function generate()", function(done) {
-        ip.generate.should.exist && ip.generate.should.be.a.Function;
+        should.exist(ip.generate) && ip.generate.should.be.a.Function;
 
         done();
       });

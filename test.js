@@ -5,8 +5,7 @@
 
     var str = rStr();
 
-    console.log(str.params({
-      include: "a#",
-      maxLength: 48
-    }));
+    var should = require("should");
+
+    console.log(should.exist(undefined));
 }();

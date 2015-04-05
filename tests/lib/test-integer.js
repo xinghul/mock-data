@@ -83,7 +83,7 @@
 
         done();
       });
-      it("should generate string with given params, in three different ways", function(done) {
+      it("should generate integer with given params, in three different ways", function(done) {
         var genStart = false
         ,   genEnd   = false;
 

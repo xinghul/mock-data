@@ -2,12 +2,13 @@
   "use strict";
 
   module.exports = {
-    generic: {
-      string : require("./lib/string"),
-      date   : require("./lib/date"),
-      integer: require("./lib/integer"),
-      ipv4   : require("./lib/ipv4")
-    },
+    // models
+    string : require("./lib/string"),
+    date   : require("./lib/date"),
+    integer: require("./lib/integer"),
+    ipv4   : require("./lib/ipv4"),
+
+    // generator
     generate: require("./util/generator")
   };
 

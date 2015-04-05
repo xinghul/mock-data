@@ -3,7 +3,7 @@
 
   var should = require("should");
 
-  var rIpv4 = require("../../").generic.ipv4
+  var rIpv4 = require("../../").ipv4
   ,   utils = require("../../util/utils");
 
   describe("Test ipv4", function() {

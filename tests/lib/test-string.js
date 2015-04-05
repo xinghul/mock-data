@@ -4,7 +4,7 @@
   var should = require("should");
 
   var utils = require("../../util/utils")
-  ,   rStr  = require("../../").generic.string;
+  ,   rStr  = require("../../").string;
 
   describe("Test string", function() {
     var str, str1;
@@ -129,10 +129,11 @@
 
         done();
       });
-      it("should generate string with given params", function(done) {
+      it("should generate string with given params, in three different ways", function(done) {
         var genStart = false
         ,   genEnd   = false;
-        for (var i = 0, result; i < 1000; i++) {
+
+        for (var i = 0, result; i < 333; i++) {
           result = str.generate();
           result.should.be.a.String;
           should(result.length).not.greaterThan(rMaxLength).and.not.lessThan(rMinLength);
@@ -146,9 +147,40 @@
           }
         }
 
-        if (genStart && genEnd) {
-          done();
+        var ret = str.generate(333);
+        should(ret).be.an.Array && should(ret.length).equal(333);
+        for (var i = 0; i < ret.length; i ++) {
+          should(ret[i]).be.a.String;
+          should(ret[i].length).not.greaterThan(rMaxLength).and.not.lessThan(rMinLength);
+
+          utils.isValidString(ret[i], rInclude).should.be.true;
+
+          if (ret[i].length === rMinLength) {
+            genStart = true;
+          } else if (ret[i].length === rMaxLength) {
+            genEnd = true;
+          }
         }
+
+        str.generate(333, function(err, data) {
+          should(data).be.an.Array && should(data.length).equal(333);
+          for (var i = 0; i < data.length; i ++) {
+            should(data[i]).be.a.String;
+            should(data[i].length).not.greaterThan(rMaxLength).and.not.lessThan(rMinLength);
+
+            utils.isValidString(data[i], rInclude).should.be.true;
+
+            if (data[i].length === rMinLength) {
+              genStart = true;
+            } else if (data[i].length === rMaxLength) {
+              genEnd = true;
+            }
+          }
+
+          if (genStart && genEnd) {
+            done();
+          }
+        });
 
       });
     });

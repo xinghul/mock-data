@@ -3,7 +3,7 @@
 
   var should = require("should");
 
-  var rInt = require("../../").generic.integer;
+  var rInt = require("../../").integer;
 
   var rInt1, rInt2;
 

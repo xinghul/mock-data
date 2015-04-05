@@ -35,6 +35,60 @@ $ sudo npm install --save mock-data
 var mock = require("mock-data");
 ```
 
+Get data models first:
+```javascript
+var rStr  = mock.string  // random string
+,   rInt  = mock.integer // random integer
+,   rIpv4 = mock.ipv4    // random ipv4
+,   rDate = mock.date    // random date
+......
+```
+
+Get instances from models:
+```javascript
+var strGen  = rStr()
+,   intGen  = rInt()
+,   ipv4Gen = rIpv4()
+,   dateGen = rDate()
+......
+```
+
+You can set parameters upon construct, or set them later using `params()` method:
+```javascript
+var strGen  = rStr(10, 48, "aA")                   // minLength, maxLength, include
+,   intGen  = rInt(-2000, 2000)                    // start, end
+,   ipv4Gen = rIpv4("192.168.*.*")                 // format
+,   dateGen = rDate(1980, 2015, false, "YYYY-MM")  // start, end, isUTC, format
+......
+
+strGen.params(10, 48, "aA");
+intGen.params(-2000, 2000);
+ipv4Gen.params("192.168.*.*");
+dateGen.params(1980, 2015, false, "YYYY-MM");
+......
+
+strGen.params({start: 10, end: 48, format: "aA"});
+intGen.params({start: -2000, end: 2000});
+ipv4Gen.params({format: "192.168.*.*"});
+dateGen.params({start: 1980, end: 2015, isUTC: false, format: "YYYY-MM"});
+......
+
+```
+If you don't do this, it will use default settings.
+
+Now you can generate data, one at a time, return an array or using callback:
+```javascript
+var ret = dateGen.generate(); // 1989-09
+
+var ret = dateGen.generate(100); // [1989-09, 1992-07, ...]
+
+dateGen.generate(100, function(err, data) {
+  // data is an array of date with length 100  
+});
+```
+
+Alternatively, a preferable way to generate data is using `mock.generate()`.
+
 You can get the data from either callback or stream.
 
 #### Callback example

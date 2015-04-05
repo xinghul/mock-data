@@ -93,7 +93,7 @@
 
           utils.isValidString(data, rInclude).should.be.true;
           should(data.length).not.be.greaterThan(rMaxLength)
-                            .and.not.be.lessThan(rMinLength);
+                         .and.not.be.lessThan(rMinLength);
         });
         generator.on("end", function() {
           done();

@@ -9,9 +9,6 @@
   describe("Test string", function() {
     var str, str1;
     describe("Basic tests", function() {
-      before(function() {
-        str = rStr();
-      });
       it("should exist and is a function", function(done) {
         should.exist(rStr.should) && rStr.should.be.a.Function;
 
@@ -47,6 +44,11 @@
         (str.include).should.equal("aA");
         (str.maxLength).should.equal(72);
         (str.minLength).should.equal(8);
+
+        str = rStr({maxLength: 34, minLength: 14});
+        (str.include).should.equal("aA#!");
+        (str.maxLength).should.equal(34);
+        (str.minLength).should.equal(14);
 
         str = rStr({include: "a#", maxLength: 36, minLength: 12});
         (str.include).should.equal("a#");
@@ -94,7 +96,7 @@
         done();
       });
       it("should generate a new object each time calling rStr()", function(done) {
-        str = rStr("aA");
+        str  = rStr("aA");
         str1 = rStr(12, 64, "#!");
 
         should(str.include).not.equal(str1.include);

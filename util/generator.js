@@ -29,6 +29,9 @@
       case "ipv4":
         this._source = require("../lib/ipv4")();
         break;
+      case "boolean":
+        this._source = require("../lib/boolean")();
+        break;
       default:
         this._source = require("../lib/string")();
         break;

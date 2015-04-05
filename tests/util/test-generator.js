@@ -259,5 +259,60 @@
       });
     });
 
+    describe("Test generate boolean", function() {
+      var trueOdds;
+      before(function() {
+        trueOdds = Math.random();
+      });
+      it("should generate correct boolean by callback", function(done) {
+        mock.generate({
+          type: "boolean",
+          count: 1000,
+          params: {
+            trueOdds: trueOdds
+          }
+        }, function(err, data) {
+          should.exist(data) && data.should.be.an.Array;
+          data.length.should.equal(1000);
+
+          var trueCount = 0;
+          for (var i = 0; i < data.length; i++) {
+            should(data[i]).be.a.Boolean;
+
+            if (data[i]) {
+              trueCount ++;
+            }
+          }
+
+          if (Math.abs(trueCount - trueOdds * 1000) < 50) {
+            done();
+          }
+        });
+      });
+      it("should generate correct boolean by stream", function(done) {
+        var generator = mock.generate({
+          type: "boolean",
+          count: 1000,
+          params: {
+            trueOdds: trueOdds
+          }
+        });
+
+        var trueCount = 0;
+        generator.on("data", function(data) {
+          should.exist(data) && data.should.be.a.Boolean;
+
+          if (data) {
+            trueCount ++;
+          }
+        });
+        generator.on("end", function() {
+          if (Math.abs(trueCount - trueOdds * 1000) < 50) {
+            done();
+          }
+        });
+      });
+    });
+
   });
 }();

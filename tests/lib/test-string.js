@@ -111,7 +111,7 @@
       var str, rMaxLength, rMinLength, rInclude;
       before(function() {
         rMaxLength = Math.floor(Math.random() * 64) + 1;
-        rMinLength = Math.floor(Math.random() * 64) + 1;
+        rMinLength = rMaxLength - 5;
         if (rMaxLength < rMinLength) {
           var tmp = rMaxLength;
           rMaxLength = rMinLength;

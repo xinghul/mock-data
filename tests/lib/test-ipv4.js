@@ -21,6 +21,9 @@
         ip = rIpv4("192.168.*.*");
         (ip.format).should.equal("192.168.*.*");
 
+        ip = rIpv4({format: "192.168.*.2"});
+        (ip.format).should.equal("192.168.*.2");
+
         done();
       });
       it("should be able to get correct params by params()", function(done) {

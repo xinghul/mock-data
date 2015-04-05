@@ -181,7 +181,7 @@ mock.generate({
 
 #### Supported data types
 
-For now, it supports `string`, `integer`, `date` and `ipv4`.
+For now, it supports `string`, `integer`, `date`, `ipv4` and `boolean`.
 
 **String**
 
@@ -265,6 +265,16 @@ For example, `"192.168.*.*"` will generate ip addresses in class C:
 ```javascript
 params: {
   format: (default "*.*.*.*")
+}
+```
+
+**Boolean**
+
+Specify the odds for generating `true`, otherwise it will be 50/50;
+
+```javascript
+params: {
+  trueOdds: (default 0.5)
 }
 ```
 

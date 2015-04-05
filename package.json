@@ -1,6 +1,6 @@
 {
   "name": "mock-data",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "description": "generate mock data (random string, number, date, ipv4, etc.)",
   "main": "index.js",
   "scripts": {
@@ -17,9 +17,10 @@
     "string",
     "date",
     "integer",
-    "ipv4"
+    "ipv4",
+    "boolean"
   ],
-  "author": "Levi Lu <xinghu1989@gmail.com> (http://levix-lu.net/)",
+  "author": "Levi Lu <xinghu1989@gmail.com> (http://levi-lu.net/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/xinghul/mock-data/issues"

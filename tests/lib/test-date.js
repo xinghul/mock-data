@@ -61,7 +61,6 @@
       });
       it("should be able to get correct params by params()", function(done) {
         date = rDate();
-
         should.exist(date.params) && date.params.should.be.a.Function;
         var params = date.params();
 
@@ -72,7 +71,6 @@
         should(params.isUTC).equal(false);
 
         date = rDate(2010, 2013, "YYYY/MM");
-
         params = date.params();
 
         params.should.be.an.Object;
@@ -88,10 +86,10 @@
         should.exist(date.params) && date.params.should.be.a.Function;
 
         var newParams = {
-          start: 1989,
-          end: 2012,
+          start : 1989,
+          end   : 2012,
           format: "MMMM Do YYYY, h:mm:ss a",
-          isUTC: true
+          isUTC : true
         };
 
         var afterSetParams = date.params(newParams);
@@ -118,7 +116,7 @@
     });
 
     describe("Advance tests", function() {
-      var date, rStart, rEnd;
+      var rStart, rEnd;
       before(function() {
         rStart = Math.floor(Math.random() * 2000) + 1;
         rEnd   = rStart + 3;

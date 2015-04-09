@@ -4,7 +4,7 @@
   var stream = require("stream")
   ,   util = require("util");
 
-  var Readable = stream.Readable;
+  var Readable = stream.Readable || require("readable-stream").Readable;
   util.inherits(Generator, Readable);
 
   function Generator(options) {

@@ -26,6 +26,7 @@
         isNumeric(123.123).should.be.true;
 
         isNumeric("").should.be.false;
+        isNumeric(undefined).should.be.false;
         isNumeric("12!3").should.be.false;
         isNumeric({
           name: "levi"

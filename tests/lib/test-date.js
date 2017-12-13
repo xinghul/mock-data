@@ -48,7 +48,7 @@
         date = rDate({start: 1879, end: 2013});
         (date.start).should.equal(1879);
         (date.end).should.equal(2013);
-        should(date.format).not.exist;
+        should.not.exist(date.format);
         (date.isUTC).should.equal(false);
 
         date = rDate({start: 1880, end: 2032, format: "YYYY-DD", isUTC: true});
